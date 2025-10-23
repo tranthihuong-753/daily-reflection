@@ -1,0 +1,47 @@
+{% extends 'journal/base.html' %}
+{% load static %}
+{% block content %}
+<section class="page-header">
+  <h2>🌸 Biết ơn</h2>
+  <p class="hint">Ghi lại điều khiến bạn biết ơn hôm nay</p>
+</section>
+
+<section class="input-area">
+  <form method="post">
+    {% csrf_token %}
+    <textarea name="NoiDung" placeholder="Viết điều bạn biết ơn..." required></textarea>
+    <button class="btn-save">Lưu</button>
+  </form>
+</section>
+
+<section class="notes-wrap">
+  <div class="masonry">
+    {% for note in page_obj %}
+    <div class="note" data-id="{{ note.id }}">
+      <div class="note-ico"></div>
+      <div class="note-date">{{ note.Ngay|date:"Y-m-d H:i" }}</div>
+      <div class="note-text">{{ note.NoiDung|linebreaksbr }}</div>
+    </div>
+    {% empty %}
+    <p class="empty">Chưa có bản ghi nào — thử viết điều đầu tiên nhé!</p>
+    {% endfor %}
+  </div>
+
+  <!-- pagination -->
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}">« Trước</a>
+    {% endif %}
+    <span>Trang {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">Sau »</a>
+    {% endif %}
+  </div>
+</section>
+<script>
+const icons = ["🐻","🐰","🌷","🦋","🌸","⭐","☁️","🍀"];
+document.querySelectorAll('.note-ico').forEach(el=>{
+    el.textContent = icons[Math.floor(Math.random()*icons.length)];
+});
+</script>
+{% endblock %}

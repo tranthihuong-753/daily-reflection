@@ -1,0 +1,14 @@
+{% extends 'journal/base.html' %}
+{% load static %}
+{% block content %}
+<div class="hero">
+  <h1>Nhật ký nhỏ — mỗi ngày một chút biết ơn</h1>
+  <p class="subtitle">Nhẹ nhàng hồng, chút xanh mát — như một ngày hoa nở.</p>
+  <div class="home-buttons">
+    <a class="home-btn bieton" href="{% url 'bieton' %}">🌸 Biết ơn</a>
+    <a class="home-btn muonlam" href="{% url 'muonlam' %}">🌻 Muốn làm</a>
+    <a class="home-btn baihoc" href="{% url 'baihoc' %}">💡 Bài học</a>
+  </div>
+  <blockquote class="quote">“Hôm nay, hãy viết một điều khiến bạn mỉm cười.”</blockquote>
+</div>
+{% endblock %}
