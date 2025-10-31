@@ -79,10 +79,16 @@ WSGI_APPLICATION = 'DailyReflection.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'daily_8r0t',
+        'USER': 'daily_8r0t_user',
+        'PASSWORD': '0qDEWnRvuF9dQLVCQH4iLT4IWgkWheOf',
+        'HOST': 'dpg-d426mgali9vc73846udg-a.oregon-postgres.render.com',
+        'PORT': '5432',
     }
 }
+
+
 
 
 # Password validation
