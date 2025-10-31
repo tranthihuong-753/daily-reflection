@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-fch6!q-p8rp_-zjchw@ot9%2z5uftu_v(&wqa9z^4&$7s)%jw5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['daily-reflection.onrender.com', '127.0.0.1', 'localhost']
-
+ALLOWED_HOSTS = ['daily-reflection-6gso.onrender.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -140,4 +139,3 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
