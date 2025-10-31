@@ -1,0 +1,31 @@
+{% load static %}
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DailyReflection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Caveat&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'journal/css/style.css' %}">
+</head>
+<body>
+  <!-- leaf container - lá rơi -->
+  <div id="leaf-wrap"></div>
+
+  <!-- background audio -->
+  <audio id="bg-audio" loop preload="auto">
+    <source src="{% static 'journal/audio/bg.mp3' %}" type="audio/mpeg">
+  </audio>
+
+  <header class="site-header">
+    <a  class="logo" href="{% url 'index' %}">🌸 DailyReflection</a>
+    <button id="music-toggle" class="music-btn">🔈</button>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="{% static 'journal/js/main.js' %}"></script>
+</body>
+</html>

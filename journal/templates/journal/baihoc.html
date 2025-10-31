@@ -1,0 +1,46 @@
+{% extends 'journal/base.html' %}
+{% load static %}
+{% block content %}
+<section class="page-header baihoc-header">
+  <h2>💡 Bài học</h2>
+  <p class="hint">Những điều bạn nhận ra hôm nay</p>
+</section>
+
+<section class="input-area baihoc-input">
+  <form method="post">
+    {% csrf_token %}
+    <textarea name="NoiDung" placeholder="Điều bạn học được hôm nay là gì?" required></textarea>
+    <button class="btn-save bh-btn">Lưu bài học</button>
+  </form>
+</section>
+
+<section class="notes-wrap baihoc-notes">
+  <div class="masonry">
+    {% for note in page_obj %}
+    <div class="note note-bh" data-id="{{ note.id }}">
+      <div class="note-ico">✨</div>
+      <div class="note-date">{{ item.created_at|date:"d/m/Y" }}</div>
+      <div class="note-text">{{ note.NoiDung|linebreaksbr }}</div>
+    </div>
+    {% empty %}
+    <p class="empty">Chưa có bài học nào — hãy viết điều bạn nhận ra hôm nay 🌙</p>
+    {% endfor %}
+  </div>
+
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}">« Trước</a>
+    {% endif %}
+    <span>Trang {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">Sau »</a>
+    {% endif %}
+  </div>
+</section>
+<script>
+const icons = ["🐻","🐰","🌷","🦋","🌸","⭐","☁️","🍀"];
+document.querySelectorAll('.note-ico').forEach(el=>{
+    el.textContent = icons[Math.floor(Math.random()*icons.length)];
+});
+</script>
+{% endblock %}

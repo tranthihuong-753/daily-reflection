@@ -1,32 +1,42 @@
 from django.shortcuts import render, redirect
 from .models import BietOn, MuonLam, BaiHoc
+from django.core.paginator import Paginator
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'journal/index.html')
 
 def bieton(request):
     if request.method == 'POST':
-        NoiDung = request.POST.get('NoiDung')
-        if NoiDung:
-            BietOn.objects.create(NoiDung=NoiDung)
+        nd = request.POST.get('NoiDung')
+        if nd:
+            BietOn.objects.create(NoiDung=nd)
         return redirect('bieton')
-    data = BietOn.objects.all().order_by('-id')
-    return render(request, 'bieton.html', {'data': data})
+    items = BietOn.objects.all().order_by('-Ngay')
+    paginator = Paginator(items, 6)  # 6 note / page
+    page = request.GET.get('page')
+    page_obj = paginator.get_page(page)
+    return render(request, 'journal/bieton.html', {'page_obj': page_obj, 'type':'bieton'})
 
 def muonlam(request):
     if request.method == 'POST':
-        NoiDung = request.POST.get('NoiDung')
-        if NoiDung:
-            MuonLam.objects.create(NoiDung=NoiDung)
+        nd = request.POST.get('NoiDung')
+        if nd:
+            MuonLam.objects.create(NoiDung=nd)
         return redirect('muonlam')
-    data = MuonLam.objects.all().order_by('-id')
-    return render(request, 'muonlam.html', {'data': data})
+    items = MuonLam.objects.all().order_by('-Ngay')
+    paginator = Paginator(items, 6)
+    page = request.GET.get('page')
+    page_obj = paginator.get_page(page)
+    return render(request, 'journal/muonlam.html', {'page_obj': page_obj, 'type':'muonlam'})
 
 def baihoc(request):
     if request.method == 'POST':
-        NoiDung = request.POST.get('NoiDung')
-        if NoiDung:
-            BaiHoc.objects.create(NoiDung=NoiDung)
+        nd = request.POST.get('NoiDung')
+        if nd:
+            BaiHoc.objects.create(NoiDung=nd)
         return redirect('baihoc')
-    data = BaiHoc.objects.all().order_by('-id')
-    return render(request, 'baihoc.html', {'data': data})
+    items = BaiHoc.objects.all().order_by('-Ngay')
+    paginator = Paginator(items, 6)
+    page = request.GET.get('page')
+    page_obj = paginator.get_page(page)
+    return render(request, 'journal/baihoc.html', {'page_obj': page_obj, 'type':'baihoc'})

@@ -1,0 +1,46 @@
+{% extends 'journal/base.html' %}
+{% load static %}
+{% block content %}
+<section class="page-header muonlam-header">
+  <h2>🌻 Muốn làm</h2>
+  <p class="hint">Ghi lại những điều bạn muốn thực hiện hôm nay</p>
+</section>
+
+<section class="input-area muonlam-input">
+  <form method="post">
+    {% csrf_token %}
+    <textarea name="NoiDung" placeholder="Hôm nay bạn muốn làm gì?" required></textarea>
+    <button class="btn-save ml-btn">Lưu mục tiêu</button>
+  </form>
+</section>
+
+<section class="notes-wrap muonlam-notes">
+  <div class="masonry">
+    {% for note in page_obj %}
+    <div class="note note-ml" data-id="{{ note.id }}">
+      <div class="note-ico">🔥</div>
+      <div class="note-date">{{ item.created_at|date:"d/m/Y" }}</div>
+      <div class="note-text">{{ note.NoiDung|linebreaksbr }}</div>
+    </div>
+    {% empty %}
+    <p class="empty">Chưa có mục tiêu nào — thử đặt mục tiêu đầu tiên nhé 💪</p>
+    {% endfor %}
+  </div>
+
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}">« Trước</a>
+    {% endif %}
+    <span>Trang {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">Sau »</a>
+    {% endif %}
+  </div>
+</section>
+<script>
+const icons = ["🐻","🐰","🌷","🦋","🌸","⭐","☁️","🍀"];
+document.querySelectorAll('.note-ico').forEach(el=>{
+    el.textContent = icons[Math.floor(Math.random()*icons.length)];
+});
+</script>
+{% endblock %}
